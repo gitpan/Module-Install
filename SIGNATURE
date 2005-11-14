@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.44.
+signed via the Module::Signature module, version 0.41.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It will check each file's integrity, as well as the signature's
+It would check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -14,15 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 3acefe2d03457557610dfdea730118cc9cc0774f Changes
+SHA1 77556ceb3a18a75e30c2578dedb3708c85c2248e Changes
 SHA1 1756bcf7ed9bb3551b2abf4e761f7e5281298ecb MANIFEST
 SHA1 b292912c8da32da89d09e2f04af47c991b5d6d9f MANIFEST.SKIP
-SHA1 94ae71917211115e17a24858a4b2de25d3dce26c META.yml
+SHA1 e8b41f3a08010609b9749632e12540f3ab7e0266 META.yml
 SHA1 689d177ca5b849874c44678d7214fe3709fd937a Makefile.PL
 SHA1 2dedd5d3a7657e82e790adcbfa46a6c2439319b0 README
 SHA1 e9cabad66944b665d36e0a7cda0dd7bf1f75cfd9 ToDo
 SHA1 6e3780de396adc1991ee4daafb5ae13bb93ae6a3 inc/ExtUtils/AutoInstall.pm
-SHA1 68780a79fa273f84d2cb7c772b5b3e458d2759fe inc/Module/Install.pm
+SHA1 fa10d954b0a586acd7df10e4e46790057cbe3e00 inc/Module/Install.pm
 SHA1 27174a369dc179b1c59eb0c3a84ae321c623c8ad inc/Module/Install/AutoInstall.pm
 SHA1 8122b1ebf5a5e5a40b268bd32d498e6e03f113e0 inc/Module/Install/Base.pm
 SHA1 4be97c42634ff9c97839c98a171315916663573e inc/Module/Install/Can.pm
@@ -69,9 +69,9 @@ SHA1 bf5a33c7d976eef9474f20566e034b97d0b5b29f lib/inc/Module/Install.pm
 SHA1 d3014329080004c3054aac8835d7a1c53461d82a t/1-basic.t
 SHA1 86d255a7c9f065a13049108362c949b3e35a4c24 t/2pod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.2 (GNU/Linux)
+Version: GnuPG v1.4.2 (FreeBSD)
 
-iD8DBQFDXmERtLPdNzw1AaARAkM2AKCkgTR4RxoEcJht0+I/rGvWORF0qgCeMPRr
-kzfPzpjDg+3vbMkj8RaApqM=
-=pMsV
+iD8DBQFDeNI+tLPdNzw1AaARAkTKAJ9Va/8ITxdUCCjeSJCoMHLO0P3q7wCgrkC1
+jDIrKbMkQL0iPnUxe2k8Srw=
+=+FnR
 -----END PGP SIGNATURE-----

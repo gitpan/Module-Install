@@ -1,4 +1,7 @@
-[Changes for 0.39 - 2005-10-25]
+[Changes for 0.39 - 2005-11-15]
+
+* Re-uploaded the same version as 2005-10-19, but with correct
+  spelling in distribution name, as reported by statico.
 
 * Fix a trivial typo in ::Bundle.
 
