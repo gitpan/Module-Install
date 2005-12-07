@@ -1,19 +1,16 @@
-[Changes for 0.39 - 2005-11-15]
+[Changes for 0.40 - 2005-12-07]
 
-* Re-uploaded the same version as 2005-10-19, but with correct
-  spelling in distribution name, as reported by statico.
+* Massively updated documentation (more to come later).
 
-* Fix a trivial typo in ::Bundle.
+* Parentheses are now optional in Makefile.PL.
 
-[Changes for 0.38 - 2005-10-24]
+* Includes Module::AutoInstall, a cleaned-up version of ExtUtils::AutoInstall.
 
-* Support specifying test files as tests().
+* New command all_from() to combine all *_from() tests into one.
 
-* auto_bundle() now works with CPANPLUS 0.5xx versions.
+* New command test() to Support specifying test files.
 
-* New directive, auto_bundle_deps(), that bundles dependencies recursively.
-
-* Core modules are no longer subject to autobundling.
+* New command feature() to list individual features easily.
 
 [Changes for 0.37 - 2005-08-04]
 
