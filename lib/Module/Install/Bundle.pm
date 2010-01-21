@@ -9,7 +9,7 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '0.91';
+	$VERSION = '0.92';
 	@ISA     = 'Module::Install::Base';
 	$ISCORE  = 1;
 }
@@ -40,14 +40,14 @@ sub bundle {
         $self->bundles($name, $target);
 
         next if eval "use $name $version; 1";
-        mkdir $target or die $! unless -d $target;
+        mkdir( $target, 0777 ) or die $! unless -d $target;
 
         # XXX - clean those directories upon "make clean"?
         File::Find::find({
             wanted => sub {
                 my $out = $_;
                 $out =~ s/$bundle_dir/./i;
-                mkdir $out if -d;
+                mkdir( $out, 0777 ) if -d;
                 File::Copy::copy($_ => $out) unless -d;
             },
             no_chdir => 1,

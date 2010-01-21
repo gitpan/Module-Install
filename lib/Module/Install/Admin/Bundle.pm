@@ -5,7 +5,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.91';;
+	$VERSION = '0.92';;
 	@ISA     = qw{Module::Install::Base};
 }
 
@@ -33,7 +33,7 @@ sub bundle {
     $conf->set_conf( signature => 0 );
     $conf->set_conf( md5       => 0 );
 
-    mkdir $bundle_dir;
+    mkdir( $bundle_dir, 0777 );
 
     my %bundles;
 

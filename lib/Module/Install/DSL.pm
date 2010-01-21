@@ -3,7 +3,7 @@ package Module::Install::DSL;
 use strict;
 use vars qw{$VERSION $ISCORE};
 BEGIN {
-	$VERSION = '0.91';
+	$VERSION = '0.92';
 	$ISCORE  = 1;
 	*inc::Module::Install::DSL::VERSION = *VERSION;
 	@inc::Module::Install::DSL::ISA     = __PACKAGE__;
@@ -44,7 +44,7 @@ sub import {
 
 	# Execute the script
 	eval $code;
-	print STDERR "Failed to execute the generated code" if $@;
+	print STDERR "Failed to execute the generated code...\n$@" if $@;
 
 	exit(0);
 }
