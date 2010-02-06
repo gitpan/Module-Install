@@ -74,3 +74,4 @@ test/A/eg/sample
 test/A/lib/A.pm
 test/A/Makefile.PL
 test/A/t/01_compile.t
+xt/aaa.t

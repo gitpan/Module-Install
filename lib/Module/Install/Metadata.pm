@@ -5,7 +5,7 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '0.92';
+	$VERSION = '0.93';
 	@ISA     = 'Module::Install::Base';
 	$ISCORE  = 1;
 }
@@ -229,7 +229,7 @@ sub all_from {
 		die("The path '$file' does not exist, or is not a file");
 	}
 
-    $self->{values}{all_from} = $file;
+	$self->{values}{all_from} = $file;
 
 	# Some methods pull from POD instead of code.
 	# If there is a matching .pod, use that instead
@@ -450,6 +450,7 @@ sub _extract_license {
 		my @phrases      = (
 			'under the same (?:terms|license) as (?:perl|the perl programming language)' => 'perl', 1,
 			'under the terms of (?:perl|the perl programming language) itself' => 'perl', 1,
+			'Artistic and GPL'                   => 'perl',        1,
 			'GNU general public license'         => 'gpl',         1,
 			'GNU public license'                 => 'gpl',         1,
 			'GNU lesser general public license'  => 'lgpl',        1,

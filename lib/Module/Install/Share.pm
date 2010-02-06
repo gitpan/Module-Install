@@ -5,7 +5,7 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '0.92';
+	$VERSION = '0.93';
 	@ISA     = 'Module::Install::Base';
 	$ISCORE  = 1;
 }
@@ -18,7 +18,8 @@ sub install_share {
 		die "Illegal or invalid share dir type '$type'";
 	}
 	unless ( defined $dir and -d $dir ) {
-		die "Illegal or missing directory install_share param";
+    		require Carp;
+		Carp::croak("Illegal or missing directory install_share param");
 	}
 
 	# Split by type

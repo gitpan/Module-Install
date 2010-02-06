@@ -3,7 +3,7 @@ package Module::Install::DSL;
 use strict;
 use vars qw{$VERSION $ISCORE};
 BEGIN {
-	$VERSION = '0.92';
+	$VERSION = '0.93';
 	$ISCORE  = 1;
 	*inc::Module::Install::DSL::VERSION = *VERSION;
 	@inc::Module::Install::DSL::ISA     = __PACKAGE__;
@@ -38,9 +38,11 @@ sub import {
 	}
 
 	# Convert the basic syntax to code
-	my $code = "package main;\n\n"
+	my $code = "INIT {\n"
+	         . "package main;\n\n"
 	         . dsl2code($dsl)
-	         . "\n\nWriteAll();\n";
+	         . "\n\nWriteAll();\n"
+	         . "}\n";
 
 	# Execute the script
 	eval $code;
