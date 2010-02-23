@@ -65,9 +65,7 @@ t/09_read.t
 t/10_test.t
 t/11_extraction.t
 t/12_eumm_params.t
-t/97_meta.t
-t/98_pod.t
-t/99_pmv.t
+t/13_author_tests.t
 t/lib/Test.pm
 t/recursive/test.t
 test/A/eg/sample
@@ -75,3 +73,6 @@ test/A/lib/A.pm
 test/A/Makefile.PL
 test/A/t/01_compile.t
 xt/aaa.t
+xt/meta.t
+xt/pmv.t
+xt/pod.t

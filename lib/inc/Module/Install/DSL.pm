@@ -18,7 +18,7 @@ BEGIN {
 	# version an author currently has installed.
 	# This allows it to implement any back-compatibility features
 	# it may want or need to.
-	$VERSION = '0.93';	
+	$VERSION = '0.94';	
 }
 
 if ( -d './inc' ) {
@@ -75,7 +75,7 @@ inc::Module::Install::DSL - Domain Specific Language for Module::Install
 One of the primary design goals of L<Module::Install> is to simplify
 the creation of F<Makefile.PL> scripts.
 
-Part of this involves the gradual reduction of any and all superflous
+Part of this involves the gradual reduction of any and all superfluous
 characters, with the ultimate goal of requiring no non-critical
 information in the file.
 

@@ -94,7 +94,7 @@ COMMON COMMANDS
     Your::Module would normally be "Your-Module".
 
     This naming scheme is not hard and fast and you should note that
-    distributions are actually a seperate naming scheme from modules.
+    distributions are actually a separate naming scheme from modules.
 
     For example the LWP modules come in a distribution called "libwww-perl".
 
@@ -143,7 +143,7 @@ COMMON COMMANDS
     email address.
 
     It you don't want to give away a real email address, you should use the
-    "CPANID@cpan.org" address you recieve automatically when you got your
+    "CPANID@cpan.org" address you receive automatically when you got your
     PAUSE account.
 
     The "author" command is used to explicitly set this value.
@@ -658,7 +658,7 @@ TO DO
     Implement Module::Install::Compiled and Module::Install::Admin::Compiled
     to integrate the Module::Compiled "perl 6 to perl 5" functionality with
     Module::Install. Because this would add SIGNIFICANT dependencies (i.e.
-    pugs!) this should almost certainly be distributed as a seperate
+    pugs!) this should almost certainly be distributed as a separate
     distribution.
 
     Go over POD docs in detail.
