@@ -3,12 +3,13 @@ package t::lib::Test;
 use strict;
 use File::Spec   ();
 use File::Remove ();
+use File::Path ();
 use Cwd;
 use Config;
 
-use vars qw{$VERSION @ISA @EXPORT};
+use vars qw{$VERSION @ISA @EXPORT $DIST};
 BEGIN {
-	$VERSION = '0.94';
+	$VERSION = '0.95';
 	@ISA     = 'Exporter';
 	@EXPORT  = qw{
 		create_dist
@@ -16,8 +17,12 @@ BEGIN {
 		kill_dist
 		run_makefile_pl
 		add_file
+		add_test
 		_read
+		file dir
+		makefile
 	};
+	$DIST = '';
 }
 
 # Done in evals to avoid confusing Perl::MinimumVersion
@@ -40,15 +45,15 @@ sub _read {
 END_OLD
 
 sub create_dist {
-	my $dist = shift;
+	$DIST = shift;
 	my $opt  = shift || {};
 
 	# Clear out any existing directory
-	kill_dist( $dist );
+	kill_dist( $DIST );
 
 	my $home      = cwd;
-	my $dist_path = File::Spec->catdir('t', $dist);
-	my $dist_lib  = File::Spec->catdir('t', $dist, 'lib');
+	my $dist_path = dir();
+	my $dist_lib  = dir('lib');
 	mkdir($dist_path, 0777) or return 0;
 	mkdir($dist_lib,  0777) or return 0;
 	chdir($dist_path      ) or return 0;
@@ -58,7 +63,7 @@ sub create_dist {
 	print MANIFEST $opt->{MANIFEST} || <<"END_MANIFEST";
 MANIFEST
 Makefile.PL
-lib/$dist.pm
+lib/$DIST.pm
 END_MANIFEST
 	close MANIFEST;
 
@@ -66,18 +71,19 @@ END_MANIFEST
 	open MAKEFILE_PL, '>Makefile.PL' or return 0;
 	print MAKEFILE_PL $opt->{'Makefile.PL'} || <<"END_MAKEFILE_PL";
 use inc::Module::Install 0.81;
-name          '$dist';
+name          '$DIST';
+version       '0.01';
 license       'perl';
-requires_from 'lib/$dist.pm';
+requires_from 'lib/$DIST.pm';
 requires      'File::Spec' => '0.79';
 WriteAll;
 END_MAKEFILE_PL
 	close MAKEFILE_PL;
 
 	# Write the module file
-	open MODULE, ">lib/$dist.pm" or return 0;
-	print MODULE $opt->{"lib/$dist.pm"} || <<"END_MODULE";
-package $dist;
+	open MODULE, ">lib/$DIST.pm" or return 0;
+	print MODULE $opt->{"lib/$DIST.pm"} || <<"END_MODULE";
+package $DIST;
 
 \$VERSION = '3.21';
 
@@ -90,7 +96,16 @@ __END__
 
 =head1 NAME
 
-$dist - A test module
+$DIST - A test module
+
+=head1 AUTHORS
+
+Foo Bar
+
+=head1 COPYRIGHT
+
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
 
 =cut
 END_MODULE
@@ -100,16 +115,22 @@ END_MODULE
 	return 1;
 }
 
+sub file { File::Spec->catfile('t', $DIST, @_) }
+sub dir  { File::Spec->catdir('t', $DIST, @_) }
+sub makefile { file(@_, $^O eq 'VMS' ? 'Descrip.MMS' : 'Makefile' ) }
+
 sub add_file {
-	my $dist      = shift;
-	my ($path, $content) = @_;
-	my $dist_path = File::Spec->catdir('t', $dist);
+	my $dist_path = dir();
 	return 0 unless -d $dist_path;
 
-	my ($vol, $subdir, $file) = File::Spec->splitpath($path);
-	my $dist_subdir = File::Spec->catdir($dist_path, $subdir);
-	my $dist_file   = File::Spec->catfile($dist_subdir, $file);
-	mkdir($dist_subdir, 0777) or return 0;
+	my $content = pop;
+	my $file    = pop;
+	my @subdir  = @_;
+	my $dist_subdir = dir(@subdir);
+	my $dist_file   = file(@subdir, $file);
+	unless (-d $dist_subdir) {
+		File::Path::mkpath($dist_subdir, 0, 0777) or return 0;
+	}
 
 	open FILE, "> $dist_file" or return 0;
 	print FILE $content;
@@ -118,10 +139,11 @@ sub add_file {
 	return 1;
 }
 
+sub add_test { add_file(@_, qq{print "1..1\nok 1\n";}) }
+
 sub build_dist {
-	my $dist      = shift;
-	my %params    = @_;
-	my $dist_path = File::Spec->catdir('t', $dist);
+	my %params = @_;
+	my $dist_path = dir();
 	return 0 unless -d $dist_path;
 	my $home = cwd;
 	chdir $dist_path or return 0;
@@ -135,9 +157,8 @@ sub build_dist {
 }
 
 sub run_makefile_pl {
-	my $dist      = shift;
-	my %params    = @_;
-	my $dist_path = File::Spec->catdir('t', $dist);
+	my %params = @_;
+	my $dist_path = dir();
 	return 0 unless -d $dist_path;
 	my $home = cwd;
 	chdir $dist_path or return 1;
@@ -152,11 +173,25 @@ sub run_makefile_pl {
 }
 
 sub kill_dist {
-	my $dist = shift;
-	my $dir = File::Spec->catdir('t', $dist);
+	my $dir = dir();
 	return 1 unless -d $dir;
 	File::Remove::remove( \1, $dir );
 	return -d $dir ? 0 : 1;
+}
+
+sub extract_target {
+	my $target  = shift;
+	my $makefile = makefile();
+	return '' unless -f $makefile;
+	my $content = _read($makefile) or return '';
+	my @lines;
+	my $flag;
+	foreach (split /\n/, $content) {
+		if (/^$target\s*:/) { $flag++ }
+		elsif (/^\S+\s*:/) { $flag = 0 }
+		push @lines, $_ if $flag;
+	}
+	return wantarray ? @lines : join "\n", @lines;
 }
 
 1;

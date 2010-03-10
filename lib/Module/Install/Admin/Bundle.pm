@@ -5,7 +5,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.94';;
+	$VERSION = '0.95';;
 	@ISA     = qw{Module::Install::Base};
 }
 
@@ -55,7 +55,11 @@ sub bundle {
 
         unlink $file;
         next unless ($extract_result);
-        $bundles{$name} = $extract_result;
+        if ($extract_result =~ /$bundle_dir\/(.*)/) {
+            $bundles{$name} = 'inc/BUNDLES/'.$1;
+        } else {
+            $bundles{$name} = $extract_result;
+        }
         $self->{already_bundled}{ $mod->package }++;
 
     }

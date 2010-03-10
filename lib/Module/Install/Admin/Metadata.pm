@@ -6,7 +6,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.94';;
+	$VERSION = '0.95';;
 	@ISA     = 'Module::Install::Base';
 }
 
@@ -149,7 +149,6 @@ sub dump_meta {
 	}
 
 	$meta->{provides}     = $val->{provides} if $val->{provides};
-	$meta->{author}     &&= [ $meta->{author} ];
 	$meta->{no_index}     = $val->{no_index};
 	$meta->{generated_by} = "$pkg version $ver";
 	$meta->{'meta-spec'}  = {

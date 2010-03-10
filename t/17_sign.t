@@ -9,8 +9,11 @@ BEGIN {
 use Test::More;
 use File::Spec;
 use t::lib::Test;
+require ExtUtils::MakeMaker;
 
-plan tests => 15;
+plan skip_all => 'test requires ExtUtils::MakeMaker >= 6.17' if eval($ExtUtils::MakeMaker::VERSION) < 6.17;
+
+plan tests => 12;
 
 SCOPE: {
 	ok( create_dist('Foo', { 'Makefile.PL' => <<"END_DSL" }), 'create_dist' );
@@ -21,17 +24,15 @@ author        'Someone';
 license       'perl';
 perl_version  '5.005';
 requires_from 'lib/Foo.pm';
-WriteAll;
+WriteAll(sign => 0);
 END_DSL
 
-	ok( add_test(qw(xt test.t)), 'added xt' );
 	ok( build_dist(), 'build_dist' );
 	my $file = makefile();
 	ok(-f $file);
 	my $content = _read($file);
 	ok($content, 'file is not empty');
-	diag my ($testline) = $content =~ /^#\s*(test => .+)$/m if $ENV{TEST_VERBOSE};
-	ok($content =~ /#\s*test => { TESTS=>.+xt\/\*\.t/, 'has xt/*.t');
+	ok($content !~ /#\s*SIGN => q\[[01]\]/, 'has no sign');
 	ok( kill_dist(), 'kill_dist' );
 }
 
@@ -44,23 +45,18 @@ author        'Someone';
 license       'perl';
 perl_version  '5.005';
 requires_from 'lib/Foo.pm';
-WriteAll;
+WriteAll(sign => 1);
 END_DSL
 
-	ok( add_test(qw(xt test.t)), 'added xt' );
 	ok( build_dist(), 'build_dist' );
-	rmdir dir(qw(inc .author)); # non-author-mode
-	unlink makefile();
-	ok( run_makefile_pl(), 'build_dist again' );
 	my $file = makefile();
 	ok(-f $file);
 	my $content = _read($file);
 	ok($content, 'file is not empty');
-	diag my ($testline) = $content =~ /^#\s*(test => .+)$/m if $ENV{TEST_VERBOSE};
-	if ( $ENV{RELEASE_TESTING} ) {
-		ok($content =~ /#\s*test => { TESTS=>.+xt\/\*\.t/, 'has xt/*.t');
-	} else {
-		ok($content !~ /#\s*test => { TESTS=>.+xt\/\*\.t/, 'has no xt/*.t');
-	}
+	ok($content =~ /#\s*SIGN => q\[1\]/, 'has sign');
+
+	# XXX: might be better test `$Config{make} distsign` here
+	# but it's neither safe nor portable...
+
 	ok( kill_dist(), 'kill_dist' );
 }

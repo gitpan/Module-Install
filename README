@@ -311,7 +311,7 @@ COMMON COMMANDS
     100% complete at time of writing, and still cannot be relied upon.
 
     Because Module::Install itself only supports 5.005, it will silently add
-    the equivalent of a "configure_requires( perl =" '5.005' );> command to
+    the equivalent of a "configure_requires( perl => '5.005' );" command to
     your distribution.
 
   requires_external_bin
@@ -510,7 +510,7 @@ EXTENSIONS
     Provides "&Inline->write" to replace Inline::MakeMaker's functionality
     for making Inline-based modules (and cleaning up).
 
-    However, you should invoke this with "WriteAll( inline =" 1 )>.
+    However, you should invoke this with "WriteAll( inline => 1 )".
 
   Module::Install::Makefile
     Provides "&Makefile->write" to generate a Makefile for you distribution.

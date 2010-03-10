@@ -10,8 +10,8 @@ configure_requires:
   ExtUtils::MakeMaker: 6.42
   YAML::Tiny: 1.33
 distribution_type: module
-generated_by: 'Module::Install version 0.94'
-license: perl
+generated_by: 'Module::Install version 0.95'
+license: gpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -40,6 +40,6 @@ requires:
   perl: 5.005
 resources:
   ChangeLog: http://fisheye2.atlassian.com/changelog/cpan/trunk/Module-Install
-  license: http://dev.perl.org/licenses/
+  license: http://opensource.org/licenses/gpl-license.php
   repository: http://svn.ali.as/cpan/trunk/Module-Install
-version: 0.94
+version: 0.95
