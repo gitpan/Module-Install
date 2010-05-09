@@ -1,5 +1,40 @@
 Changes for Perl programming language extension Module-Install
 
+0.96 Tue 27 Apr 2010
+	- Stop Bundle.pm pointlessly calling import() of bundled modules
+	  (MSTROUT)
+	- Resolved #55464: Wrong license detection (by Jens Rehsack)
+	  (ISHIGAKI)
+	- Resolved #55594: Missing license (by Salve J. Nilsen) (ISHIGAKI)
+	- Resolved #5849 (load_extensions() causes "Subroutine %s
+	  redefined" warnings) (by Steve Hay) (ISHIGAKI)
+	- Resolved #19445: unknown functions in Makefile.PL should fail.
+	  and #19449: license is not found if unknown function is present
+	  (both are the same issue) (ISHIGAKI)
+	- Resolved #54890: MYMETA.yml creation doesn't work (by miyagawa)
+	  (ISHIGAKI)
+	- Resolved #55974: FakeAdmin does not define (by Francesc Guasch)
+	  (ISHIGAKI)
+	- Resolved #40230: test_requires and include (by Alexandr Ciornii)
+	  (ISHIGAKI)
+	- Resolved #56460: Bundle documentation error? (by Florent Angly)
+	  (ISHIGAKI)
+	- Resolved #56459: Cannot find bundle source for modules that
+	  contain sub-modules (patch by Florent Angly) (ISHIGAKI)
+	- Resolved #56474: Dependency check error fails to be triggered
+	  (by Florent Angly) (ISHIGAKI)
+	- Resolved #5528: Sub-directory builds don't work (by Steve Hay)
+	  (ISHIGAKI)
+	- Resolved #56531: New patches for M::I::Bundle (patch by Florent
+	  Angly) (ISHIGAKI)
+	- Resolved #56589 for Module-Install: Bundle's refactor
+	  (patch by Florent Angly) (ISHIGAKI)
+	- Pass VERSION_FROM to EU::MM in the background to let it check
+	  version integrity (ISHIGAKI)
+	- Improved tests and removed unnecessary directories/files
+	  (ISHIGAKI)
+	- Added API.pod and FAQ.pod (ISHIGAKI)
+
 0.95 Wed 10 Mar 2010
 	- Resolved #51614: POD nits (by Frank Wiegand) (ISHIGAKI)
 	- Resolved #51077: auto_include_deps would mention the

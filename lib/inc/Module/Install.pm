@@ -18,7 +18,7 @@ BEGIN {
 	# version an author currently has installed.
 	# This allows it to implement any back-compatibility features
 	# it may want or need to.
-	$VERSION = '0.95';
+	$VERSION = '0.96';
 }
 
 if ( -d './inc' ) {
@@ -38,6 +38,7 @@ if ( -d './inc' ) {
 }
 
 unshift @INC, 'inc' unless $INC[0] eq 'inc';
+local $^W;
 require Module::Install;
 
 sub _check_update {

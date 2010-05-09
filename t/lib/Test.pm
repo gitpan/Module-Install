@@ -9,7 +9,7 @@ use Config;
 
 use vars qw{$VERSION @ISA @EXPORT $DIST};
 BEGIN {
-	$VERSION = '0.95';
+	$VERSION = '0.96';
 	@ISA     = 'Exporter';
 	@EXPORT  = qw{
 		create_dist
@@ -21,6 +21,9 @@ BEGIN {
 		_read
 		file dir
 		makefile
+		make
+		supports_capture
+		capture_build_dist
 	};
 	$DIST = '';
 }
@@ -85,22 +88,32 @@ END_MAKEFILE_PL
 	print MODULE $opt->{"lib/$DIST.pm"} || <<"END_MODULE";
 package $DIST;
 
-\$VERSION = '3.21';
-
-use strict;
-use File::Spec 0.80;
-
-1;
-
-__END__
+=pod
 
 =head1 NAME
 
 $DIST - A test module
 
+=cut
+
+use 5.005;
+use strict;
+
+\$VERSION = '3.21';
+
+use File::Spec 0.80;
+
+=pod
+
 =head1 AUTHORS
 
 Foo Bar
+
+=cut
+
+1;
+
+__END__
 
 =head1 COPYRIGHT
 
@@ -151,9 +164,9 @@ sub build_dist {
 	local $ENV{X_MYMETA} = $X_MYMETA;
 
 	my @run_params=@{ $params{run_params} || [] };
-	system($^X, "-I../../lib", "-I../../blib/lib", "Makefile.PL",@run_params) == 0 or return 0;
+	my $ret = system($^X, "-I../../lib", "-I../../blib/lib", "Makefile.PL",@run_params);
 	chdir $home or return 0;
-	return 1;
+	return $ret ? 0 : 1;
 }
 
 sub run_makefile_pl {
@@ -166,10 +179,10 @@ sub run_makefile_pl {
 	local $ENV{X_MYMETA} = $X_MYMETA;
 
 	my $run_params=join(' ',@{ $params{run_params} || [] });
-	system("$^X -I../../lib -I../../blib/lib Makefile.PL $run_params") == 0 or return 0;
+	my $ret = system("$^X -I../../lib -I../../blib/lib Makefile.PL $run_params");
 	#my $result=qx();
 	chdir $home or return 0;
-	return 1;
+	return $ret ? 0 : 1;
 }
 
 sub kill_dist {
@@ -177,6 +190,34 @@ sub kill_dist {
 	return 1 unless -d $dir;
 	File::Remove::remove( \1, $dir );
 	return -d $dir ? 0 : 1;
+}
+
+sub supports_capture {
+	# stolen from ExtUtils::MakeMaker's test
+	use ExtUtils::MM;
+
+	# Unix, modern Windows and OS/2 from 5.005_54 up can handle 2>&1 
+	# This makes our failure diagnostics nicer to read.
+	return 1
+		if (MM->os_flavor_is('Unix') or
+			(MM->os_flavor_is('Win32') and !MM->os_flavor_is('Win9x')) or
+			($] > 5.00554 and MM->os_flavor_is('OS/2')));
+}
+
+sub capture_build_dist {
+	my %params = @_;
+	my $dist_path = dir();
+	return '' unless -d $dist_path;
+	my $home = cwd;
+	chdir $dist_path or return '';
+	my $X_MYMETA = $params{MYMETA} || '';
+	local $ENV{X_MYMETA} = $X_MYMETA;
+
+	my @run_params=@{ $params{run_params} || [] };
+	my $command = join ' ', $^X, "-I../../lib", "-I../../blib/lib", "Makefile.PL", @run_params;
+	my $ret = `$command 2>&1`;
+	chdir $home;
+	return $ret;
 }
 
 sub extract_target {
@@ -192,6 +233,22 @@ sub extract_target {
 		push @lines, $_ if $flag;
 	}
 	return wantarray ? @lines : join "\n", @lines;
+}
+
+sub make {
+	my $target = shift || '';
+
+	my $dist_path = dir();
+	return '' unless -d $dist_path;
+	my $home = cwd;
+	chdir $dist_path or return '';
+
+	my $make = $Config{make};
+	my $ret = supports_capture()
+		? `$make $target 2>&1`
+		: `$make $target`;
+	chdir $home;
+	return $ret;
 }
 
 1;

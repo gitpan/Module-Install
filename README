@@ -491,9 +491,6 @@ EXTENSIONS
   Module::Install::Base
     The base class for all extensions
 
-  Module::Install::Build
-    Provides integration with Module::Build via "&Build->write".
-
   Module::Install::Bundle
     Provides the "bundle" family of commands, allowing you to bundle another
     CPAN distribution within your distribution.
@@ -536,7 +533,7 @@ EXTENSIONS
 
   Module::Install::WriteAll
     Provides the "WriteAll", which writes all the requires files, such as
-    META.yml and either Makefile or Build.
+    META.yml and Makefile.
 
     "WriteAll" takes four optional named parameters:
 
@@ -683,8 +680,6 @@ SEE ALSO
     Module::Install::Base
 
     Module::Install::Bundle
-
-    Module::Install::Build
 
     Module::Install::MakeMaker
 

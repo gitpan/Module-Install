@@ -10,8 +10,8 @@ configure_requires:
   ExtUtils::MakeMaker: 6.42
   YAML::Tiny: 1.33
 distribution_type: module
-generated_by: 'Module::Install version 0.95'
-license: gpl
+generated_by: 'Module::Install version 0.96'
+license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -19,9 +19,7 @@ name: Module-Install
 no_index:
   directory:
     - inc
-    - share
     - t
-    - test
     - xt
 requires:
   Archive::Tar: 1.44
@@ -29,9 +27,9 @@ requires:
   ExtUtils::Install: 1.52
   ExtUtils::ParseXS: 2.19
   File::Remove: 1.42
-  File::Spec: 3.2701
+  File::Spec: 3.28
   JSON: 2.14
-  Module::Build: 0.2804
+  Module::Build: 0.29
   Module::CoreList: 2.17
   Module::ScanDeps: 0.89
   PAR::Dist: 0.29
@@ -40,6 +38,6 @@ requires:
   perl: 5.005
 resources:
   ChangeLog: http://fisheye2.atlassian.com/changelog/cpan/trunk/Module-Install
-  license: http://opensource.org/licenses/gpl-license.php
+  license: http://dev.perl.org/licenses/
   repository: http://svn.ali.as/cpan/trunk/Module-Install
-version: 0.95
+version: 0.96

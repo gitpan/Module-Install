@@ -4,7 +4,7 @@ use strict;
 use Module::Install::Base ();
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.95';;
+	$VERSION = '0.96';;
 	@ISA = qw(Module::Install::Base);
 }
 
@@ -15,7 +15,7 @@ sub scan_dependencies {
 
     $perl_version ||= $self->perl_version or die <<'END_MESSAGE';
 Please first specify a required perl version, like this:
-    requires( perl => '5.005' );
+    perl_version('5.005');
 END_MESSAGE
     $perl_version =~ s{^(\d+)\.(\d+)\.(\d+)}{$1 + $2/1_000 + $3/1_000_000}e;
 
@@ -29,10 +29,12 @@ END_MESSAGE
         return if $min_version <= $perl_version;
     }
 
-    my @files = scalar $self->admin->find_in_inc($pkg)
+    # We only need the first one in the @INC here
+    my $file = $self->admin->find_in_inc($pkg)
         or die "Cannot find $pkg in \@INC";
-    my %result = ($pkg => $files[0]);
+    my %result = ($pkg => $file);
 
+    my @files = ($file);
     while (@files) {
         my $deps = Module::ScanDeps::scan_deps(
             files   => \@files,

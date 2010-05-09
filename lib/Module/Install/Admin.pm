@@ -6,7 +6,7 @@ use inc::Module::Install ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.95';
+	$VERSION = '0.96';
 	@ISA     = 'Module::Install';
 }
 
@@ -92,6 +92,7 @@ files under F<inc/>.
 sub import {
 	my $class = shift;
 	my $self  = $class->new( _top => Module::Install->new, @_ );
+	local $^W;
 	*{caller(0) . "::AUTOLOAD"} = sub {
 		no strict 'vars';
 		$AUTOLOAD =~ /([^:]+)$/ or die "Cannot load";
@@ -99,7 +100,7 @@ sub import {
 		my $obj = $self->load($1) or return;
 		unshift @_, $obj;
 		goto &{$obj->can($1)};
-	}
+	};
 }
 
 sub new {
@@ -113,14 +114,13 @@ sub new {
 
 sub init {
 	my $self = shift;
-
 	$self->copy($INC{"$self->{path}.pm"} => $self->{file});
 
 	unless ( grep { $_ eq $self->{prefix} } @INC ) {
 		unshift @INC, $self->{prefix};
 	}
+ 	delete $INC{"$self->{path}.pm"};
 
-	delete $INC{"$self->{path}.pm"};
 	local $^W;
 	do "$self->{path}.pm";
 }
