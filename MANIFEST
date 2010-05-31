@@ -83,6 +83,7 @@ t/27_build_requires_and_include.t
 t/28_makemaker_args.t
 t/29_requires_from.t
 t/30_build_subdirs.t
+t/31_add_metadata.t
 t/lib/Test.pm
 t/recursive/test.t
 xt/licenses.t
