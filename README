@@ -481,13 +481,6 @@ EXTENSIONS
     Provides "auto_install()" to automatically fetch and install
     prerequisites.
 
-    The use of "auto_install" is strongly discouraged in any distribution to
-    be uploaded to the CPAN, as the use of it violates the normal CPAN
-    client to toolchain communication protocol.
-
-    Support may be dropped at a future time, with some alternative process
-    providing the equivalent functionality.
-
   Module::Install::Base
     The base class for all extensions
 
@@ -608,8 +601,6 @@ FAQ
   Module::Install isn't at 1.00 yet, is it safe to use yet?
     As long as you are going to periodically do incremental releases to get
     any bug fixes and new functionality, yes.
-
-    You should also strongly avoid the use of "auto_install".
 
     If you don't plan to do incremental releases, it might be a good idea to
     continue to wait for a while.
