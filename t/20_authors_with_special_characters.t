@@ -45,7 +45,10 @@ END
 	ok(-f $file);
 	my $content = _read($file);
 	ok($content, 'file is not empty');
-	ok($content =~ /#\s*AUTHOR => q\[First 'Middle' Last\]/, 'has one author');
+	ok($content =~ author_makefile_re("First 'Middle' Last"), 'has one author') or do {
+	  $content =~ /^(#\s*AUTHOR => .*?)$/m;
+	  diag "String: $1";
+	};
 	my $metafile = file('META.yml');
 	ok(-f $metafile);
 	my $meta = Parse::CPAN::Meta::LoadFile($metafile);
@@ -87,7 +90,7 @@ END
 		ok(-f $file);
 		my $content = _read($file);
 		ok($content, 'file is not empty');
-		ok($content =~ /#\s*AUTHOR => q\[Olivier Mengu\xE9\]/, 'has one author');
+		ok($content =~ author_makefile_re("Olivier Mengu\xE9"), 'has one author');
 		my $metafile = file('META.yml');
 		ok(-f $metafile);
 		my $meta = Parse::CPAN::Meta::LoadFile($metafile);
@@ -112,7 +115,7 @@ END_DSL
 		ok(-f $file);
 		my $content = _read($file);
 		ok($content, 'file is not empty');
-		ok($content =~ /#\s*AUTHOR => q\[Olivier Mengu\xE9\]/, 'has one author');
+		ok($content =~ author_makefile_re("Olivier Mengu\xE9"), 'has one author');
 		my $metafile = file('META.yml');
 		ok(-f $metafile);
 		my $meta = Parse::CPAN::Meta::LoadFile($metafile);

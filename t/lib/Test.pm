@@ -9,7 +9,7 @@ use Config;
 
 use vars qw{$VERSION @ISA @EXPORT $DIST};
 BEGIN {
-	$VERSION = '1.00';
+	$VERSION = '1.01';
 	@ISA     = 'Exporter';
 	@EXPORT  = qw{
 		create_dist
@@ -24,6 +24,7 @@ BEGIN {
 		make
 		supports_capture
 		capture_build_dist
+		author_makefile_re
 	};
 	$DIST = '';
 }
@@ -249,6 +250,18 @@ sub make {
 		: `$make $target`;
 	chdir $home;
 	return $ret;
+}
+
+require ExtUtils::MakeMaker;
+my $eumm = eval $ExtUtils::MakeMaker::VERSION;
+
+sub author_makefile_re {
+	my $author=shift;
+	if ($eumm>=6.5702) {
+		return qr/#\s*AUTHOR => \[q\[$author\]\]/;
+	} else {
+		return qr/#\s*AUTHOR => q\[$author\]/;
+	}
 }
 
 1;

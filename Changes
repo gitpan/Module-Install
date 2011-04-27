@@ -1,5 +1,11 @@
 Changes for Perl programming language extension Module-Install
 
+1.01 Wed 27 Apr 2011
+	- Better error message in install_share (CHORNY)
+	- Compatibility with MYMETA.yml support in EUMM (CHORNY)
+	- Support for extraction of Artistic 2.0 license (CHORNY)
+	- Support https links when searching for bug trackers (CHORNY)
+
 1.00 Tue 22 Jun 2010
 	- Remove obsolete text warning about nonexistent auto_install()
 	  woes
