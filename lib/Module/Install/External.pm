@@ -7,7 +7,7 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION $ISCORE @ISA};
 BEGIN {
-	$VERSION = '1.01';
+	$VERSION = '1.02';
 	$ISCORE  = 1;
 	@ISA     = qw{Module::Install::Base};
 }
@@ -40,7 +40,7 @@ sub requires_external_bin {
 	$self->load('can_run');
 
 	# Locate the bin
-	print "Locating required external dependency bin:$bin...";
+	print "Locating bin:$bin...";
 	my $found_bin = $self->can_run( $bin );
 	if ( $found_bin ) {
 		print " found at $found_bin.\n";
