@@ -3,11 +3,10 @@ package Module::Install::Admin::Bundle;
 use strict;
 use Module::Install::Base;
 use Module::CoreList;
-use LWP::UserAgent;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.06';
+	$VERSION = '1.08';
 	@ISA     = qw{Module::Install::Base};
 }
 
