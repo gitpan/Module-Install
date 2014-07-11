@@ -6,7 +6,7 @@ use Module::Install::Base ();
 
 use vars qw{$VERSION @ISA $ISCORE};
 BEGIN {
-	$VERSION = '1.08';
+	$VERSION = '1.10';
 	@ISA     = 'Module::Install::Base';
 	$ISCORE  = 1;
 }
@@ -137,7 +137,7 @@ benefits:
 
 Bundling differs from auto-installation in that when it comes time to
 install, a bundled distribution will be installed based on the distribution
-bundled with your distribution, whereas with auto-installation the distibution
+bundled with your distribution, whereas with auto-installation the distribution
 to be installed will be acquired from CPAN and then installed.
 
 =head1 METHODS

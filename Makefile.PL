@@ -18,25 +18,38 @@ use inc::Module::Install;
 
 name          'Module-Install';
 author        'Adam Kennedy <adamk@cpan.org>';
-perl_version  '5.005';
+perl_version  '5.006';
 all_from      'lib/Module/Install.pm';
-requires      'Parse::CPAN::Meta'   => '1.4413';
-requires      'File::Spec'          => '3.28';
+
 requires      'Devel::PPPort'       => '3.16';
-requires      'File::Remove'        => '1.42';
-requires      'YAML::Tiny'          => '1.38';
-requires      'JSON'                => '2.14';
-requires      'Module::ScanDeps'    => '1.09'; #detects prereqs better
-requires      'Module::CoreList'    => '2.17';
-requires      'PAR::Dist'           => '0.29';
-requires      'Archive::Tar'        => '1.44';
 requires      'ExtUtils::Install'   => '1.52';
 requires      'ExtUtils::MakeMaker' => '6.59';
 requires      'ExtUtils::ParseXS'   => '2.19';
+requires      'File::Path'          => 0; #needs version
+requires      'File::Remove'        => '1.42';
+requires      'File::Spec'          => '3.28';
 requires      'Module::Build'       => '0.29';
+requires      'Module::CoreList'    => '2.17';
+requires      'Module::ScanDeps'    => '1.09'; #detects prereqs better
+requires      'Parse::CPAN::Meta'   => '1.4413';
+requires      'Win32::UTCFileTime'  => '1.56' if win32;
+requires      'YAML::Tiny'          => '1.38';
+
 test_requires 'Test::Harness'       => '3.13';
 test_requires 'Test::More'          => '0.86';
 
+recommends    'Archive::Zip'            => '1.37';
+recommends    'File::HomeDir'           => '1';
+recommends    'JSON'                    => '2.9';
+recommends    'LWP::Simple'             => '6.00';
+recommends    'LWP::UserAgent'          => '6.05';
+recommends    'Module::Find'            => '0.12',
+recommends    'Module::Runtime'         => '0.014',
+recommends    'Software::License'       => '0.103009',
+recommends    'Test::Requires'          => '0.07',
+recommends    'Test::Software::License' => '0.002',
+recommends    'PAR::Dist'               => '0.29';
+ 
 # Remove some extra test files
 clean_files( qw{ t/Foo } );
 

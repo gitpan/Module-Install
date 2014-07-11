@@ -5,11 +5,11 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.08';
+	$VERSION = '1.10';
 	@ISA     = qw{Module::Install::Base};
 }
 
-use Cwd;
+use Cwd ();
 use File::Spec;
 
 # XXX I really want this method in Module::Install::Admin::Makefile
@@ -93,7 +93,7 @@ sub _read_manifest {
 	my $manifest_path = '';
 	my $relative_path = '';
 	my @relative_dirs = ();
-	my $cwd = Cwd::cwd();
+	my $cwd = Cwd::getcwd();
 	my @cwd_dirs = File::Spec->splitdir($cwd);
 	while ( @cwd_dirs ) {
 		last unless -f File::Spec->catfile(@cwd_dirs, 'Makefile.PL');
@@ -158,5 +158,22 @@ This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 See L<http://www.perl.com/perl/misc/Artistic.html>
+
+=cut
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 COPYRIGHT
+
+Copyright 2008 - 2014 Adam Kennedy.
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =cut

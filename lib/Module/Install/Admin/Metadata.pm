@@ -6,7 +6,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.08';
+	$VERSION = '1.10';
 	@ISA     = 'Module::Install::Base';
 }
 
@@ -60,7 +60,7 @@ sub dump_meta {
 	delete $val->{sign};
 
 	# Dependencies MUST be assumed to be dynamic unless indicated
-	# otherwise, otherwise a negligant author who accidentally forgets
+	# otherwise, otherwise a negligent author who accidentally forgets
 	# to say which will release modules that break on some platforms.
 	unless ( defined $val->{dynamic_config} ) {
 		$val->{dynamic_config} = 1;
@@ -195,3 +195,20 @@ sub WriteMyMeta {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 COPYRIGHT
+
+Copyright 2008 - 2014 Adam Kennedy.
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

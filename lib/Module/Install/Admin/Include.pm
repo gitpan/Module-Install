@@ -5,7 +5,7 @@ use Module::Install::Base;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.08';
+	$VERSION = '1.10';
 	@ISA     = qw{Module::Install::Base};
 }
 
@@ -59,7 +59,7 @@ sub auto_include_deps {
 
 =head1 NAME
 
-Module::Install::Admin::Include
+Module::Install::Admin::Include - include methods for Module::Install
 
 =head2 auto_include_dependent_dists
 
@@ -149,7 +149,7 @@ sub _pkg_to_dist {
 =for private _dist_to_mods $distname
 
 Takes the output of CPAN::Module->cpan_file and return all the modules
-that CPAN.pm knows are in that dist. There's probably a beter way using CPANPLUS
+that CPAN.pm knows are in that dist. There's probably a better way using CPANPLUS
 
 =cut
 
@@ -158,3 +158,20 @@ sub _dist_to_mods {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 COPYRIGHT
+
+Copyright 2008 - 2014 Adam Kennedy.
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

@@ -18,7 +18,7 @@ BEGIN {
 	# version an author currently has installed.
 	# This allows it to implement any back-compatibility features
 	# it may want or need to.
-	$VERSION = '1.08';
+	$VERSION = '1.10';
 }
 
 if ( -d './inc' ) {
@@ -127,9 +127,9 @@ sub _require_myconfig_or_config {
 }
 
 # adapted from CPAN::HandleConfig
-sub _home () {
+sub _home {
 	my $home;
-	if (eval "require File:HomeDir; 1") {
+	if (eval {require File::HomeDir; 1}) {
 		$home = File::HomeDir->can('my_dot_config')
 			? File::HomeDir->my_dot_config
 			: File::HomeDir->my_data;
