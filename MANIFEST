@@ -86,6 +86,8 @@ t/29_requires_from.t
 t/30_build_subdirs.t
 t/31_add_metadata.t
 t/32_module_name.t
+t/33_copy.t
+t/34_readwrite.t
 t/lib/Test.pm
 t/recursive/test.t
 xt/licenses.t
